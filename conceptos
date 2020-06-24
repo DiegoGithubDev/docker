@@ -1,10 +1,10 @@
-Imagen
+IMAGEN
   Es una plantilla de la cual partimos para la creacion de un contenedor
   Las imagenes se distribuyen.
   Las imagenes son como una caja vacia, cuando ejecutamos una imagen esta se combierte en un contenedor
   Las imagenes tienen versiones debido a que podemos modificarles metiendoles nuevas cosas
   Estan compuestos por capas y ficheros
-Contenedor
+CONTENEDOR
   Es el resultado de ejecutar una imagen, pero se debe tener en cuenta que esta ejecucion generalmente tiene propiedades, como ser el puerto para la creacion del contenedor.
   Tambien podemos decir que un contenedor ya tiene configuraciones definidas por la ejecucion de la imagen.
   Cuando se borra los contenedores, se pierdoen todos los datos que estan dentro de el.
@@ -17,7 +17,7 @@ stop : para detener el contenedor
 rm : comando para eliminar el contenedor
 rmi : comando para eliminar la imagen
 
-Mapeo de puertos
+MAPEO DE PUERTOS
   Es necesario para acceder a las aplicaciones
   Es una tecnica para dirigir el trafico desde el puerto de tu host al puerto del contenedor,para esto definimos
   La aplicacion que esta contenida esta escuchando por su puerto definido por ella misma/
@@ -26,7 +26,7 @@ Mapeo de puertos
   comando:
     docker run --name name_mi_container -p 9090:8080 jboss/wildfly:latest
 
-Volumenes
+VOLUMENES
   Nos permite crear una especie de carpeta compartida en en nuestro host a la cual accede un determinado contenedor, de tal manera que cuando borre el contenedor
   los datos ya estaran escritos en la carpeta compartida.
   Nos permite mapear una carpeta de mi host hacia la carpeta especifica del contenedor, esto lo utilizamos para desplegar aplicacaciones
@@ -35,24 +35,24 @@ Volumenes
   La carpeta a la que debe de acceder el contenedor generalmente debe de ser el home, esto por tema de seguridad
   
   comando
-    docker run --name name_mi_container -p 9090:8080 jboss/wildfly:latest -v /home/usuario/aplicaciones/:/opt/wildfly/standalone/deployments/
+    $ docker run --name name_mi_container -p 9090:8080 jboss/wildfly:latest -v /home/usuario/aplicaciones/:/opt/wildfly/standalone/deployments/
     este comando desplegara la aplicacion en el contenedor wildfly server
     se puede montar mas de un volumen
 
-Variables de entornos
+VARIABLES DE ENTORNO
   se utiliza para realizar parametrizacion en la ejecucion, comunicar el mundo exterior con el contenedor 
  generalmente se utiliza en BD para pasarle el usuario y la contrasena al contenedor
  comando
     $ docker run --name some-mariadb -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mariadb:tag
-LOogs
+LOGS DE CONTENEDORES
    $ docker logs -f id_contenedor
    
-Entrar al interior un contenedor  
+ENTRAR AL INTERIOR DE UN CONTENEDOR  
   Solo en casos especiales se recomienda ingresar al contenedor pues es un linux simple con lo necesario para ejecutar la aplicacion contenida.
   comando
     docker exec -ti my_container bash
     
- Referencias entre contenedores
+REFERENCIAS ENTRE CONTENEDORES
    comunicacion entre contenedores, de manera predeterminada los contenedores estan aislados es decir no se conocen entre ellos, pero realizando ciertos pasos
    se puede lograr la comunicacion entre contenedores (referencias), ejemplo una aplicacion wildflay se comunique con una base de datos.
   
@@ -61,13 +61,14 @@ Entrar al interior un contenedor
   
   comando: crear un link hacia el "contenedorxx" + alias del link
     docker run --name mi_container -p 8080:80 --link hacia_name_container:alias_conexion_to_db -d wildfly
-  Dockerfile
+  DOCKERFILE
     Archivo que nos permite crear imagenes
     Nos permite definir los parametros para la creacion de imagenes, es decir crear una imagen personalizada que se adapte a nueestras necesidades
     por ejemplo escribir en cierto directorio, password, driver,comunicacion, puertos,etc 
     
     personalizar imagen: consiste en adicionar ficheros, por ejemplo libreria de conexion, framework u otro tipo de ficheros o aplicaciones
     la instruccion run se utiliza para ejecutar comandos,ej:
+      ------------FILE: dockerfile--------------
       FROM jboss/wildfly
       ADD "fuente(local o nube)" directorio_de_la_imagen()
       COPY path_file destino_path_linux_wildlfy
@@ -81,14 +82,14 @@ Entrar al interior un contenedor
     comando 
       docker build -t nombre_imagen:version .
       
-  Cambiar arranque
+  CAMBIAR ARRANQUE
     entrypoint: forma de entrar al servicio y luego le pasamos paraetros
     cmd : pasar parametros
     
-  Variables de entorno 
+  VARIABLES DE ENTORNO 
     Generalmente se utilizan en base de datos puesto que la necesitan para definir el usuario y password,
   
-  Docker composer
+  DOCKER COMPOSER
    Lo necesitamos cuando tenemos que manipular varios contenedores y tambien necesitamos comunicarlos entre ellos
    arrancar varios contenedores personalizarlos y comunicarlos entre ellos.
    
@@ -108,13 +109,3 @@ Entrar al interior un contenedor
           ports
             -3306:3306
     
-
-  
-
-  
- 
- 
- 
-    
-    
-  
